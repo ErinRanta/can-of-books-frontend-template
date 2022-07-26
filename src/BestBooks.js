@@ -10,7 +10,7 @@ class BestBooks extends React.Component {
   }
 
   async pullBooks() {
-    let url = 'https://can-of-books-backened.herokuapp.com/books';
+    let url = 'I couldn\'t deploy on Heroku because the repo was not in my GitHub...';
     let response = await axios.get(url);
     this.setState({
       books: response.data
