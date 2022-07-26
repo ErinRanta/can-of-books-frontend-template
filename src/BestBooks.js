@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class BestBooks extends React.Component {
   constructor(props) {
@@ -8,7 +9,17 @@ class BestBooks extends React.Component {
     }
   }
 
-  /* TODO: Make a GET request to your API to fetch all the books from the database  */
+  async pullBooks() {
+    let url = 'I couldn\'t deploy on Heroku because the repo was not in my GitHub...';
+    let response = await axios.get(url);
+    this.setState({
+      books: response.data
+    })
+  }
+  
+  componentDidMount() {
+    this.pullBooks()
+  }
 
   render() {
 
