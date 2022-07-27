@@ -6,7 +6,10 @@ class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+      title: '',
+      description: '',
+      status: '',
     }
   }
 
@@ -22,6 +25,46 @@ class BestBooks extends React.Component {
     this.pullBooks()
   }
 
+  addBook = (e) => {
+    e.preventDefault();
+    let book = {
+      title: this.state.title,
+      description: this.state.description,
+      status: this.state.status,
+    }
+
+    axios.post('https://can-of-books-backened.herokuapp.com/book', book)
+      .then(response => {
+        console.log(response);
+        this.setState({ list: [...this.state.list, response.data] });
+      });
+  }
+
+  deleteBook = (e) => {
+    e.preventDefault();
+    let book = {
+      title: this.state.title,
+      description: this.state.description,
+      status: this.state.status, 
+  }
+ }
+
+
+
+handleChange = (e) => {
+  let {key, value} = e.target;
+  this.setState({ [key]: value });
+}
+
+
+
+
+
+
+
+
+
+
   render() {
 
     /* TODO: render all the books in a Carousel */
@@ -29,7 +72,13 @@ class BestBooks extends React.Component {
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
-        {console.log(this.state.books)}
+        <form onSubmit={this.addBook}>
+          <input type='text' name="title" onChange={this.handleChange}/>
+          <input type='text' name="description" onChange={this.handleChange} />
+          <input type='text' name="status" onChange={this.handleChange} />
+          <button type="submit">Create Book!</button>
+        </form>
+           {console.log(this.state.books)}
         {this.state.books.length ? (
           <Carousel>
 
@@ -55,5 +104,6 @@ class BestBooks extends React.Component {
     )
   }
 }
+
 
 export default BestBooks;
