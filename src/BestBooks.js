@@ -10,6 +10,7 @@ class BestBooks extends React.Component {
       title: '',
       description: '',
       status: '',
+      currentSlide: 0
     }
   }
 
@@ -41,14 +42,17 @@ class BestBooks extends React.Component {
       });
   }
 
-//   deleteBook = (e) => {
-//     e.preventDefault();
-//     let book = {
-//       title: this.state.title,
-//       description: this.state.description,
-//       status: this.state.status, 
-//   }
-//  }
+  deleteBook = (e) => {
+    e.preventDefault();
+    let id = this.state.books[this.state.currentSlide]._id
+    console.log(id)
+    axios.delete(`https://can-of-books-backened.herokuapp.com/book/${id}`)
+    .then(response => {
+      console.log(response);
+      this.setState({ list: response.data });
+    });
+  }
+ 
 
 
 
@@ -57,8 +61,17 @@ handleChange = (e) => {
   this.setState({ [name]: value });
 }
 
+handleClick = (e) => {
+  let id = e.target;
+  console.log(e);
+  this.setState({currentId: id})
+}
 
-
+handleSlide = async (e) => {
+  console.log(e)
+  await this.setState({currentSlide: e})
+  console.log(this.state.currentSlide)
+}
 
 
 
@@ -81,7 +94,7 @@ handleChange = (e) => {
         </form>
            {console.log(this.state.books)}
         {this.state.books.length ? (
-          <Carousel>
+          <Carousel onSlide={this.handleSlide}>
 
             {this.state.books.map(element =>
               <Carousel.Item key={element.title}>
@@ -93,6 +106,7 @@ handleChange = (e) => {
                   <h1>{element.title}</h1>
                   <h2>{element.description}</h2>
                   <h3>{element.status}</h3>
+                  <button onClick={this.deleteBook}>Delete</button>
                 </Carousel.Caption>
               </Carousel.Item>
             )}
