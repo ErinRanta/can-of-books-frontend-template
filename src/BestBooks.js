@@ -41,14 +41,14 @@ class BestBooks extends React.Component {
       });
   }
 
-  deleteBook = (e) => {
-    e.preventDefault();
-    let book = {
-      title: this.state.title,
-      description: this.state.description,
-      status: this.state.status, 
-  }
- }
+//   deleteBook = (e) => {
+//     e.preventDefault();
+//     let book = {
+//       title: this.state.title,
+//       description: this.state.description,
+//       status: this.state.status, 
+//   }
+//  }
 
 
 
