@@ -27,6 +27,7 @@ class BestBooks extends React.Component {
 
   addBook = (e) => {
     e.preventDefault();
+    console.log(e)
     let book = {
       title: this.state.title,
       description: this.state.description,
@@ -36,24 +37,24 @@ class BestBooks extends React.Component {
     axios.post('https://can-of-books-backened.herokuapp.com/book', book)
       .then(response => {
         console.log(response);
-        this.setState({ list: [...this.state.list, response.data] });
+        this.setState({ list: [...this.state.books, response.data] });
       });
   }
 
-  deleteBook = (e) => {
-    e.preventDefault();
-    let book = {
-      title: this.state.title,
-      description: this.state.description,
-      status: this.state.status, 
-  }
- }
+//   deleteBook = (e) => {
+//     e.preventDefault();
+//     let book = {
+//       title: this.state.title,
+//       description: this.state.description,
+//       status: this.state.status, 
+//   }
+//  }
 
 
 
 handleChange = (e) => {
-  let {key, value} = e.target;
-  this.setState({ [key]: value });
+  let {name, value} = e.target;
+  this.setState({ [name]: value });
 }
 
 
