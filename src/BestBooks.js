@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import Carousel from 'react-bootstrap/Carousel';
-import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import BookFormModal from './BookFormModal';
+import BookFormModalEdit from './BookFormModalEdit';
 
 
 class BestBooks extends React.Component {
@@ -119,80 +119,8 @@ class BestBooks extends React.Component {
         <Button onClick={this.handleNew}>Add Book!</Button>
         <Button onClick={this.handleEdit}>Edit Book</Button>
 
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header>
-            <Modal.Title>Modal heading</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group className="mb-3">
-                <Form.Label>Title</Form.Label>
-                <Form.Control name="title" placeholder="Count of Monte Cristo" onChange={this.handleChange}/>
-                <Form.Text className="text-muted">
-                  We'll never share your email with anyone else.
-                </Form.Text>
-              </Form.Group>
-
-              <Form.Group className="mb-3">
-                <Form.Label>Description</Form.Label>
-                <Form.Control name="description" placeholder="Redemption, tragedy, adventure, and love." onChange={this.handleChange}/>
-              </Form.Group>
-
-              <Form.Group className="mb-3" >
-                <Form.Label>Status</Form.Label>
-                <Form.Control name="status" placeholder="read" onChange={this.handleChange}/>
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={this.addBook}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal>
-
-        <Modal show={this.state.show2} onHide={this.handleClose}>
-          <Modal.Header>
-            <Modal.Title>Modal heading</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group className="mb-3">
-                <Form.Label>Book id</Form.Label>
-                <Form.Control name="id" placeholder="Use one of the id below to edit" onChange={this.handleChange} />
-                <Form.Text className="text-muted">
-                  Feel free to edit: lord of the rings (id: 62e0a3ca051dfb4aabfa6eb7) or Gene (id: 62e235c885926bf5bf486dec)
-                </Form.Text>
-              </Form.Group>
-
-              <Form.Group className="mb-3">
-                <Form.Label>Title</Form.Label>
-                <Form.Control name="title" placeholder="Count of Monte Cristo" onChange={this.handleChange} />
-              </Form.Group>
-
-              <Form.Group className="mb-3">
-                <Form.Label>Description</Form.Label>
-                <Form.Control name="description" placeholder="Redemption, tragedy, adventure, and love." onChange={this.handleChange} />
-              </Form.Group>
-
-              <Form.Group className="mb-3" >
-                <Form.Label>Status</Form.Label>
-                <Form.Control name="status" placeholder="read" onChange={this.handleChange} />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose2}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={this.editBook}>
-              Edit Book
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        <BookFormModal onChange={this.handleChange} close={this.handleClose} add={this.addBook} show={this.state.show}/>
+        <BookFormModalEdit onChange={this.handleChange} close={this.handleClose2} edit={this.editBook} show={this.state.show2}/>
 
         {console.log(this.state.books)}
         {this.state.books.length ? (
