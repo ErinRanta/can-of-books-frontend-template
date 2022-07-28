@@ -54,123 +54,147 @@ class BestBooks extends React.Component {
     let id = this.state.books[this.state.currentSlide]._id
     console.log(id)
     axios.delete(`https://can-of-books-backened.herokuapp.com/book/${id}`)
-    .then(response => {
-      console.log(response);
-      this.setState({ books: response.data });
-    });
+      .then(response => {
+        console.log(response);
+        this.setState({ books: response.data });
+      });
   }
 
- editBook = (e) => {
-  e.preventDefault();
-  let id = this.state.id;
-  let book = {
-    title: this.state.title,
-    description: this.state.description,
-    status: this.state.status,
-  }
+  editBook = (e) => {
+    e.preventDefault();
+    let id = this.state.id;
+    let book = {
+      title: this.state.title,
+      description: this.state.description,
+      status: this.state.status,
+    }
     console.log(id)
-    axios.put(`https://can-of-books-backened.herokuapp.com/book/${id}`,book)
-    .then(response => {
-      console.log(response);
-      this.setState({ books: response.data });
-    });
- }
+    axios.put(`https://can-of-books-backened.herokuapp.com/book/${id}`, book)
+      .then(response => {
+        console.log(response);
+        this.setState({ books: response.data });
+      });
+  }
 
+  handleChange = (e) => {
+    console.log(e);
+    let { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
 
+  handleClick = (e) => {
+    let id = e.target;
+    console.log(e);
+    this.setState({ currentId: id })
+  }
 
+  handleSlide = async (e) => {
+    console.log(e)
+    await this.setState({ currentSlide: e })
+    console.log(this.state.currentSlide)
+  }
 
+  handleClose = (e) => {
+    // e.preventDefault();
+    this.setState({ show: false });
+  }
+  handleClose2 = (e) => {
+    // e.preventDefault();
+    this.setState({ show2: false });
+  }
 
-handleChange = (e) => {
-  let {name, value} = e.target;
-  this.setState({ [name]: value });
-}
-
-handleClick = (e) => {
-  let id = e.target;
-  console.log(e);
-  this.setState({currentId: id})
-}
-
-handleSlide = async (e) => {
-  console.log(e)
-  await this.setState({currentSlide: e})
-  console.log(this.state.currentSlide)
-}
-
-handleClose = (e) => {
-  // e.preventDefault();
-  this.setState({show: false});
-}
-handleClose2 = (e) => {
-  // e.preventDefault();
-  this.setState({show2: false});
-}
-
-handleNew = (e) => {
-  // e.preventDefault();
-  this.setState({show: true});
-}
-handleEdit = (e) => {
-  e.preventDefault();
-  this.setState({show2: true});
-}
-
+  handleNew = (e) => {
+    // e.preventDefault();
+    this.setState({ show: true });
+  }
+  handleEdit = (e) => {
+    e.preventDefault();
+    this.setState({ show2: true });
+  }
 
   render() {
-
-    /* TODO: render all the books in a Carousel */
-
     return (
       <>
         <h2>My Essential Lifelong Learning &amp; Formation Shelf</h2>
         <Button onClick={this.handleNew}>Add Book!</Button>
         <Button onClick={this.handleEdit}>Edit Book</Button>
+
         <Modal show={this.state.show} onHide={this.handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <form onSubmit={this.addBook}>
-          <input type='text' name="title" onChange={this.handleChange}/>
-          <input type='text' name="description" onChange={this.handleChange} />
-          <input type='text' name="status" onChange={this.handleChange} />
-          {/* <button type="submit">Create Book!</button> */}
-        </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={this.addBook}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          <Modal.Header>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Label>Title</Form.Label>
+                <Form.Control name="title" placeholder="Count of Monte Cristo" onChange={this.handleChange}/>
+                <Form.Text className="text-muted">
+                  We'll never share your email with anyone else.
+                </Form.Text>
+              </Form.Group>
 
-      <Modal show={this.state.show2} onHide={this.handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <form onSubmit={this.addBook}>
-          <input type='text' name="id" onChange={this.handleChange}/>
-          <input type='text' name="title" onChange={this.handleChange}/>
-          <input type='text' name="description" onChange={this.handleChange} />
-          <input type='text' name="status" onChange={this.handleChange} />
-          {/* <button type="submit">Create Book!</button> */}
-        </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.handleClose2}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={this.editBook}>
-            Edit Book
-          </Button>
-        </Modal.Footer>
-      </Modal>
+              <Form.Group className="mb-3">
+                <Form.Label>Description</Form.Label>
+                <Form.Control name="description" placeholder="Redemption, tragedy, adventure, and love." onChange={this.handleChange}/>
+              </Form.Group>
 
-           {console.log(this.state.books)}
+              <Form.Group className="mb-3" >
+                <Form.Label>Status</Form.Label>
+                <Form.Control name="status" placeholder="read" onChange={this.handleChange}/>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={this.addBook}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal show={this.state.show2} onHide={this.handleClose}>
+          <Modal.Header>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Label>Book id</Form.Label>
+                <Form.Control name="id" placeholder="Use one of the id below to edit" onChange={this.handleChange} />
+                <Form.Text className="text-muted">
+                  Feel free to edit: lord of the rings (id: 62e0a3ca051dfb4aabfa6eb7) or Gene (id: 62e235c885926bf5bf486dec)
+                </Form.Text>
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Title</Form.Label>
+                <Form.Control name="title" placeholder="Count of Monte Cristo" onChange={this.handleChange} />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Description</Form.Label>
+                <Form.Control name="description" placeholder="Redemption, tragedy, adventure, and love." onChange={this.handleChange} />
+              </Form.Group>
+
+              <Form.Group className="mb-3" >
+                <Form.Label>Status</Form.Label>
+                <Form.Control name="status" placeholder="read" onChange={this.handleChange} />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose2}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={this.editBook}>
+              Edit Book
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        {console.log(this.state.books)}
         {this.state.books.length ? (
           <Carousel onSlide={this.handleSlide}>
 
@@ -188,7 +212,6 @@ handleEdit = (e) => {
                 </Carousel.Caption>
               </Carousel.Item>
             )}
-            {/* {console.log(this.state.books)} */}
           </Carousel>
         ) : (
           <h3>No Books Found :(</h3>

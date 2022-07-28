@@ -4,8 +4,8 @@ Author: Erin Ranta, Austin Limanek, and Rexie Esmeralda Version: 1.0.0 (incremen
 
 ## Sites
 
-https://canofbooksear.netlify.app
-https://can-of-books-backened.herokuapp.com
+[Netlify Deployed React Site](https://canofbooksear.netlify.app)
+[Heroku Deployed Server](https://can-of-books-backened.herokuapp.com)
 
 ## Team agreement
 
@@ -14,7 +14,7 @@ We have agreed that we will meet at the beginning of the lab time and at the end
 
 ## Architecture
 
-Node, Express, MongoDB, Javascript, Dotenv
+Node, Express, MongoDB, Javascript, Dotenv, Mongoose, React, Bootstrap, cors
 
 ## Overview
 
@@ -68,8 +68,8 @@ Actual time needed to complete: 5/12 hours
 Name of feature: Put functionality frontend
 Estimate of time needed to complete: 1 hours
 Start time: 1:30 PM
-Finish time: :00 PM
-Actual time needed to complete:  hours
+Finish time: 3:30 PM
+Actual time needed to complete: 2 hours
 
 ### Logistical
 
@@ -91,4 +91,3 @@ Communication and respect.
 ## Credit and Collaborations
 
 Austin Limanek, Rexie Esmeralda, Erin Ranta. Also, Jacob Knaack
-
